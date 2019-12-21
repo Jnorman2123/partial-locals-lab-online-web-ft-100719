@@ -1,0 +1,18 @@
+<h1> Search Results </h1> 
+
+<%= form_tag '/students', method: "get" do %> 
+    <%= text_field_tag :query %> 
+    <%= submit_tag "Find Students by Name" %>
+<% end  %>
+<ul>
+    <% if params[:query].present? %>
+        <% search_students = @students.search(params[:query]) %>
+        <% search_students.each do |student| %> 
+            <%= render 'student', student: student %>
+        <% end %>
+    <% else %>
+            <% @students.each do |student| %> 
+                <%= render 'student', student: student %>
+            <% end %>
+    <% end %>
+</ul>
